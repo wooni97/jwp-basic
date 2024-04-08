@@ -69,15 +69,15 @@ public class QuestionDao {
         return jdbcTemplate.queryForObject(sql, rm, questionId);
     }
 
-    public void updateCountOfAnswer(Question question) {
-        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
-        String sql = "UPDATE QUESTIONS set countOfAnswer = ? WHERE questionId = ?";
-        jdbcTemplate.update(sql, question.getCountOfComment(), question.getQuestionId());
-    }
-
     public void update(Question question) {
         JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
-        String sql = "UPDATE QUESTIONS set writer = ?, title = ?, contents = ? where questionId = ?";
-        jdbcTemplate.update(sql, question.getWriter(), question.getTitle(), question.getContents(), question.getQuestionId());
+        String sql = "UPDATE QUESTIONS set writer = ?, title = ?, contents = ?, countOfAnswer = ? where questionId = ?";
+        jdbcTemplate.update(sql, question.getWriter(), question.getTitle(), question.getContents(), question.getCountOfComment(), question.getQuestionId());
+    }
+
+    public void delete(Long questionId) {
+        JdbcTemplate jdbcTemplate = JdbcTemplate.getInstance();
+        String sql = "DELETE FROM QUESTIONS WHERE questionId = ?";
+        jdbcTemplate.update(sql, questionId);
     }
 }

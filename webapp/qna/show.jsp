@@ -13,6 +13,9 @@
 <div class="container" id="main">
 	<div class="col-md-12 col-sm-12 col-lg-10 col-lg-offset-1">
 		<div class="panel panel-default">
+			<c:if test="${not empty errorMessage}">
+            <div class="alert alert-danger" role="alert">${errorMessage}</div>
+            </c:if>
 			<header class="qna-header">
 				<h2 class="qna-title">${question.title}</h2>
 			</header>
@@ -39,10 +42,12 @@
 								<a class="link-modify-article" href="/qna/updateForm?questionId=${question.questionId}">수정</a>
 							</li>
 							<li>
-								<form class="form-delete" action="#" method="POST">
-									<input type="hidden" name="_method" value="DELETE">
-									<button class="link-delete-article" type="submit">삭제</button>
-								</form>
+								<a class="link-delete-question" href="/qna/delete?questionId=${question.questionId}">삭제</a>
+<%--								<form class="form-delete" action="/api/qna/deleteQuestion" method="POST">--%>
+<%--									<input type="hidden" name="questionId" value="${question.questionId}">--%>
+<%--									<input type="hidden" name="_method" value="DELETE">--%>
+<%--									<button class="link-delete-article" type="submit">삭제</button>--%>
+<%--								</form>--%>
 							</li>
 							<li>
 								<a class="link-modify-article" href="/">목록</a>

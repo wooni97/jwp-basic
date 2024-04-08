@@ -16,6 +16,7 @@ import core.jdbc.ConnectionManager;
 public class ContextLoaderListener implements ServletContextListener {
     private static final Logger logger = LoggerFactory.getLogger(ContextLoaderListener.class);
 
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();

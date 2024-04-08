@@ -20,7 +20,7 @@ public class ForwardController extends AbstractController {
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         User user = UserSessionUtils.getUserFromSession(request.getSession());
         if (user != null) {
-            return jspView(forwardUrl).addObject("name", user.getName());
+            return jspView(forwardUrl).addObject("user", user);
         }
         return jspView(forwardUrl);
     }

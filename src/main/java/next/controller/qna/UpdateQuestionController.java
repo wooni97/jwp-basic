@@ -13,12 +13,14 @@ public class UpdateQuestionController extends AbstractController {
     private QuestionDao questionDao = new QuestionDao();
     @Override
     public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        Question question = new Question(Long.parseLong(request.getParameter("questionId")),
+        long questionId = Long.parseLong(request.getParameter("questionId"));
+        Question question = questionDao.findById(questionId);
+
+        questionDao.update(new Question(questionId,
                 request.getParameter("writer"),
                 request.getParameter("title"),
-                request.getParameter("contents"));
-
-        questionDao.update(question);
+                request.getParameter("contents"),
+                question.getCountOfComment()));
         return jspView("redirect:/");
     }
 }
