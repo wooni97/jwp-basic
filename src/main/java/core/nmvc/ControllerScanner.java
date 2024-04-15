@@ -11,8 +11,11 @@ import java.util.Set;
 
 public class ControllerScanner {
     private static final Logger logger = LoggerFactory.getLogger(ControllerScanner.class);
-    private Reflections reflections = new Reflections("jwp-basic");
-    private Map<Class<?>, Object> controllers;
+    private final Reflections reflections;
+
+    public ControllerScanner(Object ... basePackage) {
+        this.reflections = new Reflections(basePackage);
+    }
 
     public Map<Class<?>, Object> getControllers() {
         Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(Controller.class);
@@ -21,7 +24,7 @@ public class ControllerScanner {
     }
 
     public Map<Class<?>, Object> instantiateControllers(Set<Class<?>> annotated) {
-        controllers = new HashMap<>();
+        Map<Class<?>, Object> controllers = new HashMap<>();
 
         annotated.forEach(aClass -> {
             try {

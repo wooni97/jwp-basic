@@ -14,7 +14,7 @@ import core.annotation.RequestMapping;
 import core.annotation.RequestMethod;
 import org.reflections.ReflectionUtils;
 
-public class AnnotationHandlerMapping {
+public class AnnotationHandlerMapping implements HandlerMapping{
     private Object[] basePackage;
 
     private Map<HandlerKey, HandlerExecution> handlerExecutions = Maps.newHashMap();
