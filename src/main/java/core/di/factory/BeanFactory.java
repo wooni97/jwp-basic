@@ -37,13 +37,6 @@ public class BeanFactory {
     }
 
     /*
-    * @Inject 어노테이션이 설정되어있는 생성자를 통해서 빈을 생성
-    * 그런데 이 생성자의 인자로 전달할 빈도 다른 빈과 의존관계가 있다.
-    * 이와 같이 꼬리에 꼬리를 물고 빈 간의 의존관계가 발생할 수 있다.
-    * 다른 빈과 의존관계를 가지지 않는 빈을 찾아 인스턴스를 생성할 때까지 재귀를 실행하는 방식으로 구현한다.
-    * */
-
-    /*
     * Class에 대한 빈 인스턴스를 생성하는 메소드
     * 재귀함수의 시작은 instantiateClass()에서 시작한다.
     * @Inject 어노테이션이 설정 되어있는 생성자가 존재하면 instantiateConstructor() 메소드를 통해 인스턴스를 생성하고,
@@ -91,5 +84,16 @@ public class BeanFactory {
         return BeanUtils.instantiateClass(constructor, args.toArray());
     }
 
+    public Map<Class<?>, Object> getControllers() {
+        Map<Class<?>, Object> controllerBeans = Maps.newHashMap();
+
+        for (Class<?> clazz : preInstantiateBeans) {
+            Annotation annotation = clazz.getAnnotation(Controller.class);
+
+            if (annotation != null) {
+                controllerBeans.put(clazz, beans.get(clazz));
+            }
+        }
+        return controllerBeans;
     }
 }
